@@ -11,7 +11,7 @@ Port = 22
 UseGSSAPI = False
 DoGSSAPIKeyExchange = False
 
-def open_remote_file(hostname, remote_filepath):
+def open_remote_file(hostname, remote_filepath, mode = "r"):
     # the func will return file_handler, connection(open)
     # note: please close connection after use
     username = "langyu"
@@ -47,7 +47,7 @@ def open_remote_file(hostname, remote_filepath):
             gss_kex=DoGSSAPIKeyExchange,
         )
         sftp = paramiko.SFTPClient.from_transport(t)
-        return sftp.open(remote_filepath), t
+        return sftp.open(remote_filepath, mode), t
     except Exception as e:
         print("*** Caught exception: %s: %s" % (e.__class__, e))
         traceback.print_exc()
